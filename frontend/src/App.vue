@@ -1,7 +1,15 @@
 <template>
-  <main>
-    <h1>Porfolio - Items</h1>
-    <ItemList />
+  <main class="container">
+    <header class="hero">
+      <div class="container">
+        <h1>Porfolio - Items</h1>
+        <p>Lista de items y sincronización en tiempo real entre pestañas.</p>
+      </div>
+    </header>
+
+    <section class="container">
+      <ItemList />
+    </section>
   </main>
 </template>
 
@@ -24,6 +32,8 @@ export default {
 </script>
 
 <style>
-main { padding: 1rem; font-family: Arial, Helvetica, sans-serif; }
-h1 { color: #333; }
+:root { --app-padding: 1rem; }
+main { padding: var(--app-padding); }
+.hero { margin-bottom: 1rem; }
+.hero h1 { margin: 0 0 0.25rem 0; }
 </style>

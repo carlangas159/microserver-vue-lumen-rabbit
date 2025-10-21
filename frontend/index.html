@@ -4,10 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Porfolio Frontend</title>
+    <!-- Pico.css: framework CSS ligero para UI/UX -->
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+    <style>
+      /* Estilos globales mínimos para fondo oscuro de la app */
+      html, body, #app { height: 100%; }
+      body { background-color: #0b0f14; color: #e6e6e6; margin: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+      /* Asegurar que .container no añada fondo claro por defecto */
+      .container { background: transparent; }
+    </style>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
-
