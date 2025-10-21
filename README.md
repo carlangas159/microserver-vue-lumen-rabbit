@@ -16,7 +16,7 @@ Resumen de servicios y puertos (por defecto)
 Cómo levantar el proyecto (cmd.exe)
 1) Abrir una consola cmd.exe y cambiar al directorio del repo:
 
-    cd /d C:\Work\PorfolioRest
+    cd /d C:\
 
 2) (Opcional) Reconstruir imágenes sin cache para obtener un build limpio:
 
@@ -103,8 +103,5 @@ Siguientes mejoras recomendadas
 - Exponer configuración runtime para `VITE_WS_URL` en el contenedor frontend (por ejemplo inyectando un pequeño json en el index.html via Nginx) para evitar rebuilds cuando cambia la URL de realtime.
 - Añadir tests e2e simples que abran la UI y verifiquen la sincronización entre dos clientes.
 
-Contacto / notas finales
-- Si quieres que aplique alguna de las mejoras (por ejemplo healthchecks, runtime config, o un endpoint /api/share en el backend), dime cuál y la implemento.
 
----
-Archivo editado automáticamente: README.md
+--- 
