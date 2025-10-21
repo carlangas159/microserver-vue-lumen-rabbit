@@ -1,0 +1,56 @@
+name: porfolio-rest
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "9001:80"   # cambiado de 8000:80 a 9001:80 para evitar puerto ocupado
+    volumes:
+      - ./backend:/var/www/html
+      - backend_data:/var/www/html/storage
+    depends_on:
+      - rabbitmq
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "9002:80"  # ahora sirve nginx en 80 dentro del contenedor
+#    volumes:
+#      - ./frontend/dist:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
+      - realtime
+
+  realtime:
+    build:
+      context: ./realtime
+    ports:
+      - "3000:3000"
+    environment:
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+      RABBITMQ_RETRY_COUNT: '30'
+      RABBITMQ_RETRY_DELAY_MS: '1000'
+    depends_on:
+      - rabbitmq
+    restart: unless-stopped
+
+volumes:
+  backend_data:
+
+networks: {}

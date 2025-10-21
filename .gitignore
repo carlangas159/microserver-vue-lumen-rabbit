@@ -1,0 +1,73 @@
+﻿# .gitignore para el proyecto PorfolioRest
+# Ignora dependencias, builds y configuraciones locales para frontend, backend y realtime
+
+# Archivos de entorno
+.env
+.env.*
+.env.local
+.env.production
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+logs/
+
+# Node / frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+/dist/
+/build/
+
+# Realtime (Node)
+realtime/node_modules/
+
+# PHP / backend
+backend/vendor/
+backend/.env
+backend/.env.*
+backend/storage/
+backend/database/database.sqlite
+backend/.phpunit.result.cache
+composer.phar
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.iml
+
+# Docker
+docker-compose.override.yml
+**/.env
+
+# Cachés, cobertura y temporales
+coverage/
+.cache/
+*.tmp
+*.temp
+*.swp
+
+# Bases de datos y archivos binarios generados
+*.sqlite
+*.sqlite3
+*.db
+
+# Otros artefactos
+dist/
+build/
+
+# Evitar ignorar archivos de lock que ayudan a reproducibilidad (mantener package-lock.json, composer.lock)
+# Si prefieres ignorar locks descomenta las siguientes líneas:
+# package-lock.json
+# composer.lock
+

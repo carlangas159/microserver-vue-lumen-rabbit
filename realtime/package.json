@@ -1,0 +1,14 @@
+{
+  "name": "porfolio-realtime",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "dotenv": "^16.0.0",
+    "ws": "^8.13.0"
+  }
+}
