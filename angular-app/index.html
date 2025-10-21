@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PorfolioRest - Angular</title>
+  <link rel="stylesheet" href="/styles.css">
+  <!-- AngularJS desde CDN (1.8.x, ligero y sin build) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+  <script src="/app.js"></script>
+</head>
+<body ng-app="porfolioApp" ng-controller="MainCtrl as vm" class="app-root">
+  <header class="app-header">
+    <h1>PorfolioRest - AngularJS</h1>
+    <div class="status" ng-bind="vm.wsConnected ? 'Conectado' : 'Offline'"></div>
+  </header>
+
+  <main class="container">
+    <div ng-if="vm.loading" class="notice">Cargando...</div>
+    <div ng-if="vm.error" class="notice -danger">Error: {{vm.error}}</div>
+
+    <ul class="simple-list">
+      <li ng-repeat="item in vm.items" ng-class="{shared: vm.selectedId === item.id}" class="list-item">
+        <button class="list-btn" ng-click="vm.share(item)" aria-pressed="{{vm.selectedId === item.id}}">
+          <span class="item-id">#{{item.id}}</span>
+          <span class="item-desc">{{item.description || item.title}}</span>
+        </button>
+      </li>
+    </ul>
+  </main>
+
+  <footer class="app-footer">Puerto: 9004 — Angular app</footer>
+</body>
+</html>
+
