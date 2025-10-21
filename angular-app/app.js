@@ -148,11 +148,23 @@
         if (parsed && parsed.source && parsed.payload) payload = parsed.payload;
 
         if (payload && payload.action === 'share_item' && payload.item) {
-          const shared = payload.item;
-          vm.selectedId = shared.id;
-          const exists = vm.items.some(function (it) { return it.id === shared.id; });
-          if (!exists) {
-            vm.items.unshift(shared);
+          try {
+            // Normalizar id a número cuando sea posible (evitar comparaciones estrictas fallidas)
+            const shared = payload.item;
+            if (shared && shared.id != null) {
+              const n = Number(shared.id);
+              if (!Number.isNaN(n)) shared.id = n;
+            }
+
+            console.debug('[angular-app] Mensaje share_item recibido:', payload);
+
+            vm.selectedId = shared.id;
+            const exists = vm.items.some(function (it) { return Number(it.id) === Number(shared.id); });
+            if (!exists) {
+              vm.items.unshift(shared);
+            }
+          } catch (err) {
+            console.error('[angular-app] Error procesando payload:', err, payload);
           }
           // Forzar digest para que la vista refleje siempre la selección remota
           $scope.$applyAsync && $scope.$applyAsync();
@@ -173,11 +185,16 @@
 
         ws.onopen = function () {
           vm.wsConnected = true;
+          // Exponer el socket en window para depuración rápida en el navegador
+          try { window.__ang_ws = ws; } catch (e) {}
           reconnectDelay = 1000;
+          console.info('[angular-app] WS conectado a', WS_URL);
           $scope.$applyAsync && $scope.$applyAsync();
         };
 
         ws.onmessage = function (ev) {
+          // Log crudo para depuración: mostrar el mensaje tal cual llega
+          try { console.debug('[angular-app] WS raw message:', ev.data); } catch (e) {}
           handleIncoming(ev.data);
         };
 
