@@ -50,6 +50,16 @@ services:
       - rabbitmq
     restart: unless-stopped
 
+  # Servicio adicional para la nueva app React (no toca la app Vue existente)
+  react:
+    build:
+      context: ./react-app
+    ports:
+      - "9003:80"  # Exponer la app React en el puerto 9003 de la máquina
+    depends_on:
+      - backend
+      - realtime
+
 volumes:
   backend_data:
 
